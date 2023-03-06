@@ -14,6 +14,22 @@ public class LogicsImpl implements Logics {
         this.pawn = this.randomEmptyPosition();
         this.knight = this.randomEmptyPosition();	
     }
+
+	public LogicsImpl(int size, Pair<Integer, Integer> pawnPosition, Pair<Integer, Integer> knightPosition) {
+		if (pawnPosition.equals(knightPosition)) {
+			throw new IllegalArgumentException("The pawn and knight position must be initially different");
+		}
+		if (checkBounds(pawnPosition, size) || checkBounds(knightPosition, size)) {
+			throw new IllegalArgumentException("The pawn and knight position must be less than the grid size");
+		}
+		this.size = size;
+		this.pawn = pawnPosition;
+		this.knight = knightPosition;
+	}
+
+	private boolean checkBounds(final Pair<Integer, Integer> position, final int limit) {
+		return position.getY() >= limit || position.getX() >= limit;
+	}
     
 	private final Pair<Integer,Integer> randomEmptyPosition(){
     	Pair<Integer,Integer> pos = new Pair<>(this.random.nextInt(size),this.random.nextInt(size));
@@ -44,5 +60,15 @@ public class LogicsImpl implements Logics {
 	@Override
 	public boolean hasPawn(int row, int col) {
 		return this.pawn.equals(new Pair<>(row,col));
+	}
+
+	@Override
+	public Pair<Integer, Integer> getKnight() {
+		return new Pair<>(knight.getX(), knight.getY());
+	}
+
+	@Override
+	public Pair<Integer, Integer> getPawn() {
+		return new Pair<>(pawn.getX(), pawn.getY());
 	}
 }
