@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class LogicsImpl implements Logics {
 
-	private final Grid grid;
+    private final Grid grid;
 
     public LogicsImpl(final int gridSize) {
         grid = new GridFactoryImpl().createWithSingleKnightAndPawn(gridSize, gridSize);
