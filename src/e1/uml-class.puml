@@ -38,7 +38,8 @@ package src.model {
         +createWithSingleKnightAndPawn(width: int, height: int): Grid
         +createWithKnightAndMultiplePawn(width: int, height: int, numberOfPawns: int)
     }
-    GridFactory ..> Grid : <<creates>>
+    class GridFactoryImpl implements GridFactory
+    GridFactoryImpl ..> Grid : <<creates>>
 }
 
 package src.controller {

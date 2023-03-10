@@ -3,7 +3,7 @@ package e1.model;
 import utils.Position;
 
 /**
- * An interface modeling a movable entty, i.e. an entity that can move.
+ * An interface modeling a movable entity, i.e. an entity that can move.
  */
 public interface MovableEntity extends StaticEntity {
 

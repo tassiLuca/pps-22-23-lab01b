@@ -1,6 +1,5 @@
 package e1.model;
 
-
 import utils.Position;
 
 import java.util.Set;
@@ -11,7 +10,7 @@ import java.util.Set;
 public interface Grid {
 
     /**
-     * @returm a {@link Set} containing the pawns {@link Position}s.
+     * @return a {@link Set} containing the pawns {@link Position}s.
      */
     Set<Position> getPawnsPosition();
 

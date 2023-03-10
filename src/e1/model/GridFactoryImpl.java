@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class GridFactoryImpl implements GridFactory {
 
@@ -52,39 +53,52 @@ public class GridFactoryImpl implements GridFactory {
 
     @Override
     public Grid createWithKnightAndMultiplePawn(final int width, final int height, final int numberOfPawns) {
-        if (numberOfPawns >= width * height) {
-            throw new IllegalArgumentException("The number of pawns exceeds the grid dimension");
-        }
-        final var pawns = new HashSet<StaticEntity>();
-        for (int i = 0; i < numberOfPawns; i++) {
-            pawns.add(entityFactory.createPawn(getRandomPosition(width, height, positionsFromEntities(pawns))));
-        }
-        final var knight = entityFactory.createKnight(getRandomPosition(width, height, positionsFromEntities(pawns)));
-        return new GridImpl(width, height, pawns, knight);
-    }
-
-    private static Set<Position> positionsFromEntities(Set<StaticEntity> pawns) {
-        return pawns.stream()
-            .map(StaticEntity::getPosition)
+        checkEntitiesNumber(width, height, numberOfPawns);
+        final var pawns = randomPositions(width, height)
+            .distinct()
+            .limit(numberOfPawns)
+            .map(entityFactory::createPawn)
             .collect(Collectors.toSet());
+        final MovableEntity knight = randomPositions(width, height)
+            .filter(pos -> !positionsFromEntities(pawns).contains(pos))
+            .limit(1)
+            .map(entityFactory::createKnight)
+            .findFirst().orElseThrow();
+        return create(width, height, knight, pawns);
     }
 
-    private Position getRandomPosition(final int widthBoundary, final int highBoundary, final Set<Position> occupied) {
-        final var generated = new Position(random.nextInt(widthBoundary), random.nextInt(highBoundary));
-        return occupied.contains(generated) ? getRandomPosition(widthBoundary, highBoundary, occupied) : generated;
+    private Stream<Position> randomPositions(final int widthBound, int heightBound) {
+        return Stream.generate(() -> new Position(random.nextInt(heightBound), random.nextInt(widthBound)));
     }
 
     @Override
     public Grid create(final int width, final int height, final MovableEntity knight, final Set<StaticEntity> pawns) {
+        checkOverlap(knight, pawns);
+        checkEntitiesNumber(width, height, pawns.size());
+        return new GridImpl(width, height, pawns, new EntityFactoryImpl().createKnight(knight.getPosition()));
+    }
+
+    private void checkOverlap(final MovableEntity knight, final Set<StaticEntity> pawns) {
         if (areOverlapping(knight, pawns)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Entities must not overlap.");
         }
-        return new GridImpl(width, height, pawns, knight);
     }
 
     private boolean areOverlapping(final MovableEntity knight, final Set<StaticEntity> pawns) {
         final var entities = new HashSet<>(pawns);
         entities.add(knight);
         return positionsFromEntities(entities).stream().distinct().count() <= pawns.size();
+    }
+
+    private void checkEntitiesNumber(final int width, final int height, final int numberOfPawns) {
+        if (numberOfPawns >= width * height) {
+            throw new IllegalArgumentException("The number of pawns exceeds the grid dimension");
+        }
+    }
+
+    private static Set<Position> positionsFromEntities(Set<StaticEntity> pawns) {
+        return pawns.stream()
+            .map(StaticEntity::getPosition)
+            .collect(Collectors.toSet());
     }
 }

@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class EntityTest {
 
-    private static final int GRID_SIZE = 10;
     private static final int POSITION_ROW = 10;
     private static final int POSITION_COLUMN = 5;
     protected EntityFactory entityFactory = new EntityFactoryImpl();
