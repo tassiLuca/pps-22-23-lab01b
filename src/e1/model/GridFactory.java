@@ -13,7 +13,7 @@ public interface GridFactory {
      * @param height the height of the grid.
      * @return the created grid.
      */
-    Grid createWithSingleKnightAndPawn(final int width, final int height);
+    Grid createWithSingleKnightAndPawn(int width, int height);
 
     /**
      * Creates a {@link Grid} populated with a single knight and multiple pawns.
@@ -22,7 +22,15 @@ public interface GridFactory {
      * @param numberOfPawns the number of pawns to generate.
      * @return the created grid.
      */
-    Grid createWithKnightAndMultiplePawn(final int width, final int height, final int numberOfPawns);
+    Grid createWithKnightAndMultiplePawn(int width, int height, int numberOfPawns);
 
-    Grid create(final int width, final int height, MovableEntity knight, Set<StaticEntity> pawns);
+    /**
+     * Creates a {@link Grid} populated with the given knight and pawns.
+     * @param width the width of the grid.
+     * @param height the height of the grid.
+     * @param knight the knight to place in the grid.
+     * @param pawns a {@link Set} of pawns to place in the grid.
+     * @return the created grid.
+     */
+    Grid create(int width, int height, MovableEntity knight, Set<StaticEntity> pawns);
 }
