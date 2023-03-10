@@ -4,6 +4,9 @@ import utils.Position;
 
 import java.util.Set;
 
+/**
+ * An interface encapsulating the logic of the game.
+ */
 public interface Logics {
 
     /**
