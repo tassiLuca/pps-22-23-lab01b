@@ -1,12 +1,24 @@
 package e1.model;
 
 /**
- * This is a factory which contains a set of methods to make agile
- * create a new {@link Grid}.
+ * A factory which contains a set of methods to create and populate a {@link Grid}.
  */
 public interface GridFactory {
 
-    Grid createSinglePawnAndKnight(final int width, final int height);
+    /**
+     * Creates a {@link Grid} populated with a single knight and pawn.
+     * @param width the width of the grid.
+     * @param height the height of the grid.
+     * @return the created grid.
+     */
+    Grid createWithSingleKnightAndPawn(final int width, final int height);
 
-    Grid createMultiplePawnsAndKnight(final int width, final int height, final int numberOfPawns);
+    /**
+     * Creates a {@link Grid} populated with a single knight and multiple pawns.
+     * @param width the width of the grid.
+     * @param height the height of the grid.
+     * @param numberOfPawns the number of pawns to generate.
+     * @return the created grid.
+     */
+    Grid createWithKnightAndMultiplePawn(final int width, final int height, final int numberOfPawns);
 }

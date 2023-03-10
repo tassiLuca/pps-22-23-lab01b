@@ -5,7 +5,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class MovableEntityTest extends EntityTest {
 
@@ -13,7 +12,7 @@ class MovableEntityTest extends EntityTest {
 
     @BeforeEach
     void setup() {
-        movableEntity = entityFactory.createKnight(grid, initialPosition);
+        movableEntity = entityFactory.createKnight(initialPosition);
         super.staticEntity = movableEntity;
     }
 
@@ -29,11 +28,5 @@ class MovableEntityTest extends EntityTest {
         final var newPosition = new Position(9, 2);
         movableEntity.moveTo(newPosition);
         assertEquals(initialPosition, movableEntity.getPosition());
-    }
-
-    @Test
-    void movingOutsideBoundariesShouldThrowException() {
-        final var newPosition = new Position(15, 2);
-        assertThrows(IllegalArgumentException.class, () -> movableEntity.moveTo(newPosition));
     }
 }

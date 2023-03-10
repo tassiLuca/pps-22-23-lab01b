@@ -6,6 +6,6 @@ class StaticEntityTest extends EntityTest {
 
     @BeforeEach
     void setup() {
-        staticEntity = entityFactory.createPawn(grid, initialPosition);
+        staticEntity = entityFactory.createPawn(initialPosition);
     }
 }

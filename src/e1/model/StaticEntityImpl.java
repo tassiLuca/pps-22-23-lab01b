@@ -7,11 +7,9 @@ import utils.Position;
  */
 public class StaticEntityImpl implements StaticEntity {
 
-    protected Grid grid;
     protected Position actualPosition;
 
-    public StaticEntityImpl(final Grid grid, final Position initialPosition) {
-        this.grid = grid;
+    public StaticEntityImpl(final Position initialPosition) {
         actualPosition = initialPosition;
     }
 

@@ -1,0 +1,28 @@
+@startuml uml-class
+
+package src.model {
+    interface StaticEntity {
+        +getPosition(): Position
+    }
+    class StaticEntityImpl implements StaticEntity
+
+    interface MovableEntity extends StaticEntity {
+        +move(newPosition: Position)
+    }
+    class MovableEntityImpl implements MovableEntity
+    MovableEntityImpl -up-|> StaticEntityImpl
+
+    interface MovementStrategy {
+        +isMovementFeasible(): boolean
+    }
+
+    MovableEntityImpl o-left-> MovementStrategy
+
+    interface EntityFactory {
+        +createPawn(): StaticEntity
+        +createKnight(): MovableEntity
+    }
+    class EntityFactoryImpl implements EntityFactory
+}
+
+@enduml

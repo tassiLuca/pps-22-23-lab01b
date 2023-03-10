@@ -1,5 +1,6 @@
 package e1.model;
 
+
 import utils.Position;
 
 import java.util.Set;
@@ -9,13 +10,9 @@ import java.util.Set;
  */
 public interface Grid {
 
-    void removePawnAt(final Position position);
+    Set<Position> getPawnsPosition();
 
-    Set<StaticEntity> getPawns();
+    Position getKnightPosition();
 
-    MovableEntity getKnight();
-
-    int getWidth();
-
-    int getHeight();
+    void moveKnight(final Position newPosition);
 }
