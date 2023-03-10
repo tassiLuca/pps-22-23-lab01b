@@ -1,0 +1,12 @@
+@startuml e1-tests
+
+abstract class EntityTest {
+
+}
+class KnightTest extends EntityTest
+class PawnTest extends EntityTest
+
+class GridFactoryTest
+class GridTest
+
+@enduml

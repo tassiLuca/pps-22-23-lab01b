@@ -1,4 +1,4 @@
-@startuml uml-class
+@startuml uml-src
 
 package src.model {
     interface StaticEntity {
@@ -22,8 +22,10 @@ package src.model {
         +createPawn(): StaticEntity
         +createKnight(): MovableEntity
     }
-    EntityFactory::createPawn ..> StaticEntity: <<creates>>
-    EntityFactory::createKnight ..> MovableEntity : <<creates>>
+
+    class EntityFactoryImpl implements EntityFactory
+    EntityFactoryImpl::createPawn ..> StaticEntity: <<creates>>
+    EntityFactoryImpl::createKnight ..> MovableEntity : <<creates>>
 
     interface Grid {
         +getPawnsPositions(): Set<Position>
@@ -31,12 +33,13 @@ package src.model {
         +moveKnight(newPosition: Position)
     }
     class GridImpl implements Grid
-    GridImpl *-right-> StaticEntity
-    GridImpl *--> MovableEntity
+    GridImpl "pawns" *-right-> StaticEntity
+    GridImpl "knight" *--> MovableEntity
 
     interface GridFactory {
         +createWithSingleKnightAndPawn(width: int, height: int): Grid
-        +createWithKnightAndMultiplePawn(width: int, height: int, numberOfPawns: int)
+        +createWithKnightAndMultiplePawn(width: int, height: int, numberOfPawns: int): Grid
+        +create(width: int, height: int, knight: MovableEntity, pawn: StaticEntity): Grid
     }
     class GridFactoryImpl implements GridFactory
     GridFactoryImpl ..> Grid : <<creates>>
@@ -53,6 +56,19 @@ package src.controller {
     class LogicsImpl implements Logics
 
     LogicsImpl *-right-> Grid
+}
+
+package test.model {
+    abstract class EntityTest
+    class KnightTest extends EntityTest
+    class PawnTest extends EntityTest
+
+    class GridFactoryTest
+    class GridTest
+}
+
+package test.controller {
+    class LogicsTest
 }
 
 @enduml

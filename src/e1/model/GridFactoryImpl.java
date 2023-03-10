@@ -61,7 +61,6 @@ public class GridFactoryImpl implements GridFactory {
             .collect(Collectors.toSet());
         final MovableEntity knight = randomPositions(width, height)
             .filter(pos -> !positionsFromEntities(pawns).contains(pos))
-            .limit(1)
             .map(entityFactory::createKnight)
             .findFirst().orElseThrow();
         return create(width, height, knight, pawns);
@@ -96,7 +95,7 @@ public class GridFactoryImpl implements GridFactory {
         }
     }
 
-    private static Set<Position> positionsFromEntities(Set<StaticEntity> pawns) {
+    private static Set<Position> positionsFromEntities(final Set<StaticEntity> pawns) {
         return pawns.stream()
             .map(StaticEntity::getPosition)
             .collect(Collectors.toSet());
