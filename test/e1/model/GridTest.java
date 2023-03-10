@@ -29,6 +29,11 @@ class GridTest {
         entitiesAreCorrectlyInitialized(initWithMultiplePawnsAndKnight(numberOfPawns), numberOfPawns);
     }
 
+    private void entitiesAreCorrectlyInitialized(final Grid grid, final int numberOfPawns) {
+        assertNotNull(grid.getKnightPosition());
+        assertEquals(numberOfPawns, grid.getPawnsPosition().size());
+    }
+
     @Test
     void testCreation() {
         final var knight = new EntityFactoryImpl().createKnight(new Position(0, 0));
@@ -36,11 +41,6 @@ class GridTest {
         final var grid = new GridFactoryImpl().create(GRID_WIDTH, GRID_HEIGHT, knight, pawns);
         assertEquals(knight.getPosition(), grid.getKnightPosition());
         assertEquals(pawns.stream().map(StaticEntity::getPosition).collect(Collectors.toSet()), grid.getPawnsPosition());
-    }
-
-    private void entitiesAreCorrectlyInitialized(final Grid grid, final int numberOfPawns) {
-        assertNotNull(grid.getKnightPosition());
-        assertEquals(numberOfPawns, grid.getPawnsPosition().size());
     }
 
     @RepeatedTest(REPETITIONS)
@@ -56,6 +56,15 @@ class GridTest {
     public void attemptToCreateTooMuchEntities() {
         assertThrows(IllegalArgumentException.class, () ->
             initWithMultiplePawnsAndKnight(GRID_HEIGHT * GRID_WIDTH));
+    }
+
+    @Test
+    public void attemptToCreateOverlappingEntities() {
+        final var position = new Position(0, 0);
+        final var knight = new EntityFactoryImpl().createKnight(position);
+        final var pawns = Set.of(new EntityFactoryImpl().createPawn(position));
+        assertThrows(IllegalArgumentException.class, () ->
+            new GridFactoryImpl().create(GRID_WIDTH, GRID_HEIGHT, knight, pawns));
     }
 
     @Test
