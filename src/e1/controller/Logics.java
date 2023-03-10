@@ -14,7 +14,7 @@ public interface Logics {
     void hit(Position newPosition);
 
     /**
-     * @return true if the knight ate all the pawns in the grid, 
+     * @return true if the knight ate all the pawns in the board, 
      * i.e. no pawns are left, false otherwise.
      */
     boolean isOver();
