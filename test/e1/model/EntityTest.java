@@ -7,8 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class EntityTest {
 
-    private static final int POSITION_ROW = 10;
-    private static final int POSITION_COLUMN = 5;
+    protected static final int POSITION_ROW = 10;
+    protected static final int POSITION_COLUMN = 5;
     protected EntityFactory entityFactory = new EntityFactoryImpl();
     protected Position initialPosition = new Position(POSITION_ROW, POSITION_COLUMN);
     protected StaticEntity staticEntity;

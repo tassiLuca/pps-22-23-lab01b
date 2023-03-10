@@ -20,7 +20,7 @@ class GridFactoryTest {
 
     private final static int GRID_HEIGHT = 10;
     private final static int GRID_WIDTH = 15;
-    private final static int REPETITIONS = 20;
+    private final static int REPETITIONS = 50;
     private final GridFactory gridFactory = new GridFactoryImpl();
 
     abstract static class CommonTests {

@@ -2,7 +2,7 @@ package e1.model;
 
 import org.junit.jupiter.api.BeforeEach;
 
-class StaticEntityTest extends EntityTest {
+class PawnTest extends EntityTest {
 
     @BeforeEach
     void setup() {
