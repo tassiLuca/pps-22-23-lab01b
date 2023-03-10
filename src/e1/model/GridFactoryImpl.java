@@ -30,6 +30,11 @@ public class GridFactoryImpl implements GridFactory {
         return new GridImpl(width, height, pawns, knight);
     }
 
+    @Override
+    public Grid create(final int width, final int height, final MovableEntity knight, final Set<StaticEntity> pawns) {
+        return new GridImpl(width, height, pawns, knight);
+    }
+
     private Position getRandomPosition(final int widthBoundary, final int highBoundary, final Set<Position> occupied) {
         final var generated = new Position(random.nextInt(widthBoundary), random.nextInt(highBoundary));
         return occupied.contains(generated) ? getRandomPosition(widthBoundary, highBoundary, occupied) : generated;

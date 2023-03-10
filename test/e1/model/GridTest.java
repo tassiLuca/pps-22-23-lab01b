@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import utils.Position;
 
 import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -17,7 +19,7 @@ class GridTest {
     private static final int REPETITIONS = 100;
 
     @Test
-    void testDefaultCreation() {
+    void testCreationSinglePawn() {
         entitiesAreCorrectlyInitialized(initWithSinglePawnAndKnight(), 1);
     }
 
@@ -25,6 +27,15 @@ class GridTest {
     void testCreationMultiplePawns() {
         final int numberOfPawns = 5;
         entitiesAreCorrectlyInitialized(initWithMultiplePawnsAndKnight(numberOfPawns), numberOfPawns);
+    }
+
+    @Test
+    void testCreation() {
+        final var knight = new EntityFactoryImpl().createKnight(new Position(0, 0));
+        final var pawns = Set.of(new EntityFactoryImpl().createPawn(new Position(1, 1)));
+        final var grid = new GridFactoryImpl().create(GRID_WIDTH, GRID_HEIGHT, knight, pawns);
+        assertEquals(knight.getPosition(), grid.getKnightPosition());
+        assertEquals(pawns.stream().map(StaticEntity::getPosition).collect(Collectors.toSet()), grid.getPawnsPosition());
     }
 
     private void entitiesAreCorrectlyInitialized(final Grid grid, final int numberOfPawns) {

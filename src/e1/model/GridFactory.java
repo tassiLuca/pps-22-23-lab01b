@@ -1,5 +1,7 @@
 package e1.model;
 
+import java.util.Set;
+
 /**
  * A factory which contains a set of methods to create and populate a {@link Grid}.
  */
@@ -21,4 +23,6 @@ public interface GridFactory {
      * @return the created grid.
      */
     Grid createWithKnightAndMultiplePawn(final int width, final int height, final int numberOfPawns);
+
+    Grid create(final int width, final int height, MovableEntity knight, Set<StaticEntity> pawns);
 }

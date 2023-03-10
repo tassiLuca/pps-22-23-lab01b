@@ -10,12 +10,16 @@ public class LogicsImpl implements Logics {
 
 	private final Grid grid;
 
-    public LogicsImpl(int gridSize) {
+    public LogicsImpl(final int gridSize) {
         grid = new GridFactoryImpl().createWithSingleKnightAndPawn(gridSize, gridSize);
     }
 
+    public LogicsImpl(final Grid grid) {
+        this.grid = grid;
+    }
+
     @Override
-    public void hit(Position newPosition) {
+    public void hit(final Position newPosition) {
         grid.moveKnight(newPosition);
     }
 
