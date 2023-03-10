@@ -2,9 +2,6 @@ package e1.model;
 
 import utils.Position;
 
-/**
- * A simple entity implementation.
- */
 public class StaticEntityImpl implements StaticEntity {
 
     protected Position actualPosition;
