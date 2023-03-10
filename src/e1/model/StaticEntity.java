@@ -3,7 +3,7 @@ package e1.model;
 import utils.Position;
 
 /**
- * An interface modeling a generic entity.
+ * An interface modeling a static entity, i.e. an entity that can not move.
  */
 public interface StaticEntity {
 
