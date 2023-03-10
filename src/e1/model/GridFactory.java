@@ -3,7 +3,7 @@ package e1.model;
 import java.util.Set;
 
 /**
- * A factory which contains a set of methods to create and populate a {@link Grid}.
+ * A factory exposing a bunch of methods to create and populate a {@link Grid}.
  */
 public interface GridFactory {
 
