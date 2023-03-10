@@ -11,7 +11,7 @@ public interface Logics {
      * if the movement is not valid the operation is not performed.
      * @param newPosition the position where move the knight.
      */
-    void hit(Position newPosition);
+    void hit(final Position newPosition);
 
     /**
      * @return true if the knight ate all the pawns in the board, 
