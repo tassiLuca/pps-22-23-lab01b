@@ -60,7 +60,7 @@ public class GUI extends JFrame {
     }
 
     private void draw() {
-        final var pawnPositions = logics.getPawnPosition();
+        final var pawnPositions = logics.getPawnsPosition();
         final var knightPosition = logics.getKnightPosition();
     	for (var entry: this.buttons.entrySet()) {
     		String str = pawnPositions.contains(entry.getValue()) ? "*" :

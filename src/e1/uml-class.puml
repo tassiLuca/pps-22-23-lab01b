@@ -7,7 +7,7 @@ package src.model {
     class StaticEntityImpl implements StaticEntity
 
     interface MovableEntity extends StaticEntity {
-        +move(newPosition: Position)
+        +moveTo(newPosition: Position): boolean
     }
     class MovableEntityImpl implements MovableEntity
     MovableEntityImpl -up-|> StaticEntityImpl
@@ -16,13 +16,42 @@ package src.model {
         +isMovementFeasible(): boolean
     }
 
-    MovableEntityImpl o-left-> MovementStrategy
+    MovableEntityImpl o-right-> MovementStrategy
 
     interface EntityFactory {
         +createPawn(): StaticEntity
         +createKnight(): MovableEntity
     }
-    class EntityFactoryImpl implements EntityFactory
+    EntityFactory::createPawn ..> StaticEntity: <<creates>>
+    EntityFactory::createKnight ..> MovableEntity : <<creates>>
+
+    interface Grid {
+        +getPawnsPositions(): Set<Position>
+        +getKnightPosition(): Position
+        +moveKnight(newPosition: Position)
+    }
+    class GridImpl implements Grid
+    GridImpl *-right-> StaticEntity
+    GridImpl *--> MovableEntity
+
+    interface GridFactory {
+        +createWithSingleKnightAndPawn(width: int, height: int): Grid
+        +createWithKnightAndMultiplePawn(width: int, height: int, numberOfPawns: int)
+    }
+    GridFactory ..> Grid : <<creates>>
+}
+
+package src.controller {
+    interface Logics {
+        +hit(newPosition: Position)
+        +isOver(): boolean
+        +getKnightPosition(): Position
+        +getPawnsPosition(): Set<Position>
+    }
+
+    class LogicsImpl implements Logics
+
+    LogicsImpl *-right-> Grid
 }
 
 @enduml

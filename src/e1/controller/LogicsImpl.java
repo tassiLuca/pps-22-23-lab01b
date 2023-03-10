@@ -30,7 +30,7 @@ public class LogicsImpl implements Logics {
     }
 
     @Override
-    public Set<Position> getPawnPosition() {
+    public Set<Position> getPawnsPosition() {
         return grid.getPawnsPosition();
     }
 }

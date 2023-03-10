@@ -12,5 +12,5 @@ public interface Logics {
 
     Position getKnightPosition();
 
-    Set<Position> getPawnPosition();
+    Set<Position> getPawnsPosition();
 }

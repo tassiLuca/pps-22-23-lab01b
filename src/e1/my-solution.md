@@ -1,0 +1,3 @@
+# Solution
+
+## Exercise 1
